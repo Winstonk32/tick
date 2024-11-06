@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { EventProvider } from './Components/EventContext';
+import HomePage from './Components/Homepage';
+import EventList from './Components/Eventlist';
+import EventDetail from './Components/detail';
+import Navbar from './Components/Navbar'
+import BookingPage from './Components/OrderConfirmation';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <EventProvider>
+        <div className="min-h-screen bg-gray-100">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/events" element={<EventList />} />
+            <Route path="/book/:id" element={<BookingPage />} />
+            <Route path="/events/:eventId" element={<EventDetail />} />
+          </Routes>
+        </div>
+      </EventProvider>
+    </Router>
   );
 }
 
