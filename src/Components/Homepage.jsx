@@ -1,11 +1,15 @@
-// pages/HomePage.js
 import React from "react";
-import { Link } from "react-router-dom";
-// import { EventContext } from '../Components/EventContext';
+import { Link, useNavigate } from "react-router-dom";
 import { ReactTyped } from "react-typed";
 
 const HomePage = () => {
-  // const { events, loading } = useContext(EventContext);
+  const navigate = useNavigate();
+
+  // Handle Logout
+  const handleLogout = () => {
+    localStorage.removeItem("loggedIn"); // Remove the login state from localStorage
+    navigate("/"); // Redirect to the login page
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-blue-900">
@@ -62,6 +66,16 @@ const HomePage = () => {
                 />
               </svg>
             </Link>
+          </div>
+
+          {/* Logout Button */}
+          <div className="flex justify-center mt-6">
+            <button
+              onClick={handleLogout}
+              className="px-8 py-4 bg-red-600 text-white rounded-full font-semibold hover:bg-red-700 transition duration-300"
+            >
+              Logout
+            </button>
           </div>
 
           {/* Features Section */}
