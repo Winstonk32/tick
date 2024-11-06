@@ -281,17 +281,17 @@ const EventList = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-12 bg-gray-100">
+    <div className="container mx-auto px-4 py-12 bg-gray-500">
       <button
         onClick={toggleCart}
-        className="bg-gray-800 text-white p-2 rounded fixed top-20 right-4 z-10"
+        className="bg-red-700 text-white p-2 rounded fixed top-20 right-4 z-10"
       >
         View Cart ({cart.length})
       </button>
 
       {!showCart && (
         <div>
-          <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">
+          <h1 className="text-4xl font-bold mb-8 text-center text-gray-1000">
             Discover Movies
           </h1>
 
@@ -300,13 +300,13 @@ const EventList = () => {
             placeholder="Search by name or location..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="border p-2 rounded w-full mb-4"
+            className="border p-2 rounded w-full mb-4 bg-transparent"
           />
 
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="border p-2 rounded w-full mb-4"
+            className="border p-2 rounded w-full mb-4 bg-transparent"
           >
             {categories.map((category) => (
               <option key={category} value={category}>
@@ -364,8 +364,8 @@ const EventList = () => {
       )}
 
       {showCart && (
-        <div className="bg-gray bg-opacity-70 flex justify-center items-center inline-block">
-          <div className="bg-gray-300 p-8 rounded-lg w-96 inline-block">
+        <div className="flex justify-center items-center text-center">
+          <div className="bg-gray-500 p-8 rounded-lg w-132 inline-block">
             <h3 className="text-2xl font-bold mb-2">My Cart</h3>
             <p className="font-extrabold">Total Tickets: {totalTickets}</p>
 
