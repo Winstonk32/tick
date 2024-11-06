@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
+import EventList from './Eventlist';
 
 const BookingPage = () => {
     const { id } = useParams(); // Get the movie ID from the URL
+    const location = useLocation();
+    const { movieName } = location.state || {}; // Get movie name from state passed by Link
+
     const [date, setDate] = useState('');
-    const [time, setTime] = useState(''); // Will hold the selected time
-    const [numTickets, setNumTickets] = useState(1); // Number of tickets
+    const [time, setTime] = useState('');
+    const [numTickets, setNumTickets] = useState(1);
     const [selectedSeats, setSelectedSeats] = useState([]);
 
     // Mock function to get movie details based on ID
     const getMovieDetails = (id) => {
-        // Replace with actual logic to fetch movie details
-        return { name: "Movie Name", date: "Some Date", location: "Some Location" }; 
+        return { name: movieName || "Unknown Movie", date: "Some Date", location: "Some Location" }; 
     };
 
     const movieDetails = getMovieDetails(id);
@@ -19,30 +22,25 @@ const BookingPage = () => {
     const handleSeatClick = (seat) => {
         setSelectedSeats((prevSelected) => {
             if (prevSelected.includes(seat)) {
-                return prevSelected.filter(s => s !== seat); // Deselect seat
+                return prevSelected.filter(s => s !== seat);
             } else {
-                return [...prevSelected, seat]; // Select seat
+                return [...prevSelected, seat];
             }
         });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle the booking submission
         console.log(`Booking ${movieDetails.name} on ${date} at ${time} for ${numTickets} tickets, seats: ${selectedSeats.join(', ')}`);
-        // You can redirect to a confirmation page or show a success message
     };
 
     return (
         <div className="container mx-auto px-4 py-12 bg-gray-100">
             <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">Book Your Movie</h1>
+            <h2 className="text-2xl font-semibold mb-4 text-center text-gray-800">{movieDetails.name}</h2>
             <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg">
-                <h2 className="text-2xl font-semibold mb-6 text-gray-800">{movieDetails.name}</h2>
-                
                 <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="date">
-                        Select Date
-                    </label>
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="date">Select Date</label>
                     <input
                         type="date"
                         id="date"
@@ -54,13 +52,11 @@ const BookingPage = () => {
                 </div>
                 
                 <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="time">
-                        Select Time
-                    </label>
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="time">Select Time</label>
                     <select
                         id="time"
                         value={time}
-                        onChange={(e) => setTime(e.target.value)}
+                        onChange={(e) => setTime(e                        .target.value)}
                         className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-400"
                         required
                     >
@@ -72,9 +68,7 @@ const BookingPage = () => {
                 </div>
 
                 <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="tickets">
-                        Number of Tickets
-                    </label>
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="tickets">Number of Tickets</label>
                     <select
                         id="tickets"
                         value={numTickets}
@@ -85,14 +79,12 @@ const BookingPage = () => {
                         {[...Array(10).keys()].map(num => (
                             <option key={num + 1} value={num + 1}>{num + 1}</option>
                         ))}
-                                        </select>
+                    </select>
                 </div>
 
                 {/* Seat Selection */}
                 <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">
-                        Select Seats
-                    </label>
+                    <label className="block text-gray-700 text-sm font-bold mb-2">Select Seats</label>
                     <div className="grid grid-cols-5 gap-4">
                         {Array.from({ length: 20 }, (_, index) => `Seat ${index + 1}`).map(seat => (
                             <button

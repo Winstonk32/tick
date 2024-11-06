@@ -24,6 +24,7 @@ const mockEvents = [
     { id: 8, name: "Ghostbusters: Afterlife", date: "Saturday 02 Nov 2024", location: "Cinema Hall 8", Category: "Comedy", image: ghost },
     { id: 9, name: "The Power of the Dog", date: "Monday December 30th", location: "Cinema Hall 9", Category: "Drama", image: dog },
     { id: 10, name: "Dune: Part Two", date: "Friday December 06 2024", location: "Cinema Hall 10", Category: "Sci-Fi", image: dune },
+    {id : 11 ,name: ""}
     // Additional mock events...
 ];
 
@@ -62,6 +63,18 @@ const EventList = () => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="border p-2 rounded w-full"
                 />
+          
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {movies.map(movie => (
+                    <Link 
+                        key={movie.id}
+                        to={`/booking/${movie.id}`} 
+                        className="block p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300"
+                    >
+                        <h2 className="text-2xl font-semibold">{movie.name}</h2>
+                    </Link>
+                ))}
+            </div>
             </div>
 
             {/* Category Filter */}
