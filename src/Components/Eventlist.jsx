@@ -13,18 +13,156 @@ import west from "../images/west.jpg";
 import Cart from "./Cart";
 
 const mockEvents = [
-    { id: 1, name: "Venom 3", date: "Friday 15 Oct 2024", location: "Cinema Hall 1", Category: "Sci-Fi", image: venom },
-    { id: 2, name: "No Time to Die", date: "Friday 29 Nov 2024", location: "Cinema Hall 2", Category: "Action", image: die },
-    { id: 3, name: "The French Dispatch", date: "Saturday 30 Nov 2024", location: "Cinema Hall 3", Category: "Comedy", image: dis },
-    { id: 4, name: "Eternals", date: "Saturday 09 Nov 2024", location: "Cinema Hall 4", Category: "Adventure", image: et },
-    { id: 5, name: "The Matrix Resurrections", date: "Sunday 10 Nov 2024", location: "Cinema Hall 5", Category: "Sci-Fi", image: mat },
-    { id: 6, name: "West Side Story", date: "Thursday 19 Dec 2024", location: "Cinema Hall 6", Category: "Musical", image: west },
-    { id: 7, name: "Spider-Man: No Way Home", date: "Saturday 09 Nov 2024", location: "Cinema Hall 7", Category: "Action", image: spider },
-    { id: 8, name: "Ghostbusters: Afterlife", date: "Saturday 02 Nov 2024", location: "Cinema Hall 8", Category: "Comedy", image: ghost },
-    { id: 9, name: "The Power of the Dog", date: "Monday December 30th", location: "Cinema Hall 9", Category: "Drama", image: dog },
-    { id: 10, name: "Dune: Part Two", date: "Friday December 06 2024", location: "Cinema Hall 10", Category: "Sci-Fi", image: dune },
-    {id : 11 ,name: ""}
-    // Additional mock events...
+  {
+    id: 1,
+    name: "Venom 3",
+    date: "Friday 15 Oct 2024",
+    location: "Cinema Hall 1",
+    category: "Sci-Fi",
+    image: venom,
+    price: 12.99,
+    duration: "2h 10m",
+    director: "Andy Serkis",
+    cast: ["Tom Hardy", "Woody Harrelson", "Michelle Williams"],
+    description:
+      "The next installment in the Venom franchise, following Eddie Brock as he faces a new foe.",
+    trailer: "hhttps://www.youtube.com/watch?v=HyIyd9joTTc",
+  },
+  {
+    id: 2,
+    name: "No Time to Die",
+    date: "Friday 29 Nov 2024",
+    location: "Cinema Hall 2",
+    category: "Action",
+    image: die,
+    price: 14.99,
+    duration: "2h 43m",
+    director: "Cary Joji Fukunaga",
+    cast: ["Daniel Craig", "Rami Malek", "Léa Seydoux"],
+    description:
+      "James Bond has left active service, but his peace is short-lived when his old friend Felix Leiter from the CIA turns up asking for help.",
+    trailer: "https://www.youtube.com/watch?v=BIhNsAtPbPI",
+  },
+  {
+    id: 3,
+    name: "The French Dispatch",
+    date: "Saturday 30 Nov 2024",
+    location: "Cinema Hall 3",
+    category: "Comedy",
+    image: dis,
+    price: 11.99,
+    duration: "1h 47m",
+    director: "Wes Anderson",
+    cast: ["Benicio del Toro", "Adrien Brody", "Tilda Swinton"],
+    description:
+      "A love letter to journalists, set in an outpost of an American newspaper in a fictional 20th-century French city.",
+    trailer: "https://www.youtube.com/watch?v=TcPk2p0Zaw4",
+  },
+  {
+    id: 4,
+    name: "Eternals",
+    date: "Saturday 09 Nov 2024",
+    location: "Cinema Hall 4",
+    category: "Adventure",
+    image: et,
+    price: 13.99,
+    duration: "2h 37m",
+    director: "Chloé Zhao",
+    cast: ["Gemma Chan", "Richard Madden", "Angelina Jolie"],
+    description:
+      "The saga of the Eternals, a race of immortal beings who lived on Earth and shaped its history and civilizations.",
+    trailer: "https://www.youtube.com/watch?v=0WVDKZJkGlY",
+  },
+  {
+    id: 5,
+    name: "The Matrix Resurrections",
+    date: "Sunday 10 Nov 2024",
+    location: "Cinema Hall 5",
+    category: "Sci-Fi",
+    image: mat,
+    price: 12.99,
+    duration: "2h 28m",
+    director: "Lana Wachowski",
+    cast: ["Keanu Reeves", "Carrie-Anne Moss", "Yahya Abdul-Mateen II"],
+    description:
+      "A continuation of the story of Neo and Trinity, exploring the nature of reality and choice.",
+    trailer: "https://www.youtube.com/watch?v=9ix7TUGVYIo",
+  },
+  {
+    id: 6,
+    name: "West Side Story",
+    date: "Thursday 19 Dec 2024",
+    location: "Cinema Hall 6",
+    category: "Musical",
+    image: west,
+    price: 15.99,
+    duration: "2h 36m",
+    director: "Steven Spielberg",
+    cast: ["Ansel Elgort", "Rachel Zegler", "Ariana DeBose"],
+    description:
+      "A modern retelling of Romeo and Juliet set in 1957 New York City, featuring rival gangs and forbidden love.",
+    trailer: "https://www.youtube.com/watch?v=A5GJLwWiYSg",
+  },
+  {
+    id: 7,
+    name: "Spider-Man: No Way Home",
+    date: "Saturday 09 Nov 2024",
+    location: "Cinema Hall 7",
+    category: "Action",
+    image: spider,
+    price: 14.99,
+    duration: "2h 28m",
+    director: "Jon Watts",
+    cast: ["Tom Holland", "Zendaya", "Benedict Cumberbatch"],
+    description:
+      "Peter Parker's identity is revealed, leading him to seek help from Doctor Strange to restore his secret.",
+    trailer: "https://www.youtube.com/watch?v=JfVOs4VSpmA",
+  },
+  {
+    id: 8,
+    name: "Ghostbusters: Afterlife",
+    date: "Saturday 02 Nov 2024",
+    location: "Cinema Hall 8",
+    category: "Comedy",
+    image: ghost,
+    price: 11.99,
+    duration: "2h 4m",
+    director: "Jason Reitman",
+    cast: ["Carrie Coon", "Paul Rudd", "Finn Wolfhard"],
+    description:
+      "A family discovers their connection to the original Ghostbusters and their legacy, leading to a new adventure.",
+    trailer: "https://www.youtube.com/watch?v=ahZFCF--uRY",
+  },
+  {
+    id: 9,
+    name: "The Power of the Dog",
+    date: "Monday December 30th",
+    location: "Cinema Hall 9",
+    category: "Drama",
+    image: dog,
+    price: 13.99,
+    duration: "2h 6m",
+    director: "Jane Campion",
+    cast: ["Benedict Cumberbatch", "Kirsten Dunst", "Jesse Plemons"],
+    description:
+      "A rancher becomes unhinged when his brother brings home a new wife and her son, leading to a psychological battle.",
+    trailer: "https://www.youtube.com/watch?v=8g1g0A",
+  },
+  {
+    id: 10,
+    name: "Dune: Part Two",
+    date: "Friday December 06 2024",
+    location: "Cinema Hall 10",
+    category: "Sci-Fi",
+    image: dune,
+    price: 14.99,
+    duration: "2h 35m",
+    director: "Denis Villeneuve",
+    cast: ["Timothée Chalamet", "Zendaya", "Rebecca Ferguson"],
+    description:
+      "The epic conclusion of Paul Atreides' journey as he seeks revenge against those who destroyed his family.",
+    trailer: "https://www.youtube.com/watch?v=8g1g0A",
+  },
 ];
 
 const categories = [
@@ -43,10 +181,13 @@ const categories = [
 ];
 
 const EventList = () => {
-    const [filteredEvents, setFilteredEvents] = useState(mockEvents);
-    const [selectedCategory, setSelectedCategory] = useState("All");
-    const [searchTerm, setSearchTerm] = useState("");
-    const navigate = useNavigate(); // Initialize history
+  const [filteredEvents, setFilteredEvents] = useState(mockEvents);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [cart, setCart] = useState([]);
+  const [showCart, setShowCart] = useState(false);
+  const [error, setError] = useState("");
+  const [reply, setReply] = useState("");
 
   useEffect(() => {
     const filtered = mockEvents.filter(
@@ -140,17 +281,17 @@ const EventList = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-12 bg-gray-100">
+    <div className="container mx-auto px-4 py-12 bg-gray-500">
       <button
         onClick={toggleCart}
-        className="bg-gray-800 text-white p-2 rounded fixed top-20 right-4 z-10"
+        className="bg-red-700 text-white p-2 rounded fixed top-20 right-4 z-10"
       >
         View Cart ({cart.length})
       </button>
 
       {!showCart && (
         <div>
-          <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">
+          <h1 className="text-4xl font-bold mb-8 text-center text-gray-1000">
             Discover Movies
           </h1>
 
@@ -159,13 +300,13 @@ const EventList = () => {
             placeholder="Search by name or location..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="border p-2 rounded w-full mb-4"
+            className="border p-2 rounded w-full mb-4 bg-transparent"
           />
 
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="border p-2 rounded w-full mb-4"
+            className="border p-2 rounded w-full mb-4 bg-transparent"
           >
             {categories.map((category) => (
               <option key={category} value={category}>
@@ -174,48 +315,57 @@ const EventList = () => {
             ))}
           </select>
 
-            {/* Event Cards */}
+          {filteredEvents.length === 0 ? (
+            <p className="text-center text-gray-500">No events found.</p>
+          ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredEvents.map((event) => (
-                    <div key={event.id} className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl">
-                        <div className="relative">
-                            <img src={event.image} alt={event.name} className="w-full h-56 object-cover" />
-                            <div className="absolute top-0 right-0 bg-blue-500 text-white px-3 py-1 m-2 rounded-full text-sm font-medium">
-                                {event.Category}
-                            </div>
-                        </div>
-                        <div className="p-6">
-                            <h2 className="text-2xl font-semibold mb-2 text-gray-800">{event.name}</h2>
-                            <p className="text-gray-600 mb-2 flex items-center">
-                                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                                {event.date}
-                            </p>
-                            <p className="text-gray-600 mb-4 flex items-center">
-                                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                </svg>
-                                {event.location}
-                            </p>
-                            <button 
-                                onClick={() => handleBookNow(event)} // Call handleBookNow with the event
-                                className="w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-full hover:bg-blue-600 transition duration-300"
-                            >
-                                Book Now
-                            </button>
-                        </div>
-                    </div>
-                ))}
+              {filteredEvents.map((event) => (
+                <div
+                  key={event.id}
+                  className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl"
+                >
+                  <img
+                    src={event.image}
+                    alt={event.name}
+                    className="w-full h-56 object-cover"
+                  />
+                  <div className="p-6">
+                    <h2 className="text-2xl font-semibold mb-2 text-gray-800">
+                      {event.name}
+                    </h2>
+                    <p className="text-gray-600 mb-2">{event.date}</p>
+                    <p className="text-gray-600 mb-4">{event.location}</p>
+                    <input
+                      type="number"
+                      min="1"
+                      max="10"
+                      value={
+                        cart.find((ticket) => ticket.eventId === event.id)
+                          ?.tickets
+                      }
+                      onChange={(e) =>
+                        handleTicketChange(event.id, e.target.value)
+                      }
+                      className="border p-2 w-48 hidden"
+                    />
+
+                    <button
+                      onClick={() => handleBookNow(event)}
+                      className="bg-blue-500 text-white p-2 rounded w-full"
+                    >
+                      Book Now
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
           )}
         </div>
       )}
 
       {showCart && (
-        <div className="bg-gray bg-opacity-70 flex justify-center items-center inline-block">
-          <div className="bg-gray-300 p-8 rounded-lg w-96 inline-block">
+        <div className="flex justify-center items-center text-center">
+          <div className="bg-gray-500 p-8 rounded-lg w-132 inline-block">
             <h3 className="text-2xl font-bold mb-2">My Cart</h3>
             <p className="font-extrabold">Total Tickets: {totalTickets}</p>
 
