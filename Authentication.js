@@ -1,84 +1,32 @@
-import React, { useState } from 'react';
+// Generate a verification code and "send" it to the user
+function generateVerificationCode() {
+  const verificationCode = Math.floor(100000 + Math.random() * 900000); // Generates a 6-digit code
+  sessionStorage.setItem('verificationCode', verificationCode); // Store it in session storage for demo
+  alert(`Your verification code is: ${verificationCode}`); // In a real app, this would be sent via email
+}
 
-const Authentication = () => {
-  const [isLogin, setIsLogin] = useState(true); // Switch between login and signup
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+// Initialize verification process
+generateVerificationCode();
 
-  const handleToggleAuthMode = () => {
-    setIsLogin(!isLogin);
-    setError('');
-  };
+// Elements
+const verifyButton = document.getElementById('verify-button');
+const errorMessage = document.getElementById('error-message');
+const successMessage = document.getElementById('success-message');
+const verificationInput = document.getElementById('verification-code');
 
-  const handleLogin = () => {
-    const userData = JSON.parse(localStorage.getItem(username));
+// Event listener for the Verify button
+verifyButton.addEventListener('click', () => {
+  const enteredCode = verificationInput.value;
+  const storedCode = sessionStorage.getItem('verificationCode'); // Retrieve stored code for validation
 
-    if (userData && userData.password === password) {
-      alert('Login successful!');
-      setError('');
-      // Redirect or load user data as needed
-    } else {
-      setError('Invalid username or password');
-    }
-  };
-
-  const handleSignup = () => {
-    if (localStorage.getItem(username)) {
-      setError('Username already exists');
-      return;
-    }
-
-    const newUser = {
-      username,
-      password,
-    };
-
-    localStorage.setItem(username, JSON.stringify(newUser));
-    alert('Account created successfully!');
-    setError('');
-    setIsLogin(true); // Switch to login mode after signup
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (isLogin) {
-      handleLogin();
-    } else {
-      handleSignup();
-    }
-  };
-
-  return (
-    <div className="authentication">
-      <h2>{isLogin ? 'Login' : 'Sign Up'}</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Username:
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password:
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        {error && <p className="error">{error}</p>}
-        <button type="submit">{isLogin ? 'Login' : 'Sign Up'}</button>
-      </form>
-      <button onClick={handleToggleAuthMode}>
-        {isLogin ? 'Create an account' : 'Have an account? Log in'}
-      </button>
-    </div>
-  );
-};
-
-export default Authentication;
+  // Verify if the entered code matches the generated code
+  if (enteredCode === storedCode) {
+    successMessage.textContent = 'Verification successful!';
+    errorMessage.textContent = '';
+    sessionStorage.removeItem('verificationCode'); // Clear the code from session storage
+    // Further steps could include redirecting the user or unlocking account features
+  } else {
+    errorMessage.textContent = 'Incorrect verification code. Please try again.';
+    successMessage.textContent = '';
+  }
+});

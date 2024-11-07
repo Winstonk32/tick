@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Authentication</title>
+  <title>Account Verification</title>
   <style>
-    .authentication {
+    .verification {
       max-width: 400px;
       margin: auto;
       padding: 20px;
@@ -13,102 +13,64 @@
       border-radius: 8px;
       text-align: center;
     }
-    .authentication h2 {
+    .verification h2 {
       margin-bottom: 20px;
     }
-    .authentication label {
+    .verification label {
       display: block;
       margin: 10px 0 5px;
     }
-    .authentication input {
+    .verification input {
       width: 100%;
       padding: 8px;
       margin-bottom: 10px;
     }
-    .authentication .error {
+    .verification .error, .verification .success {
       color: red;
       margin: 10px 0;
+    }
+    .verification .success {
+      color: green;
     }
   </style>
 </head>
 <body>
 
-<div class="authentication">
-  <h2 id="auth-title">Login</h2>
-  <form id="auth-form">
-    <label for="username">Username:</label>
-    <input type="text" id="username" required>
-    
-    <label for="password">Password:</label>
-    <input type="password" id="password" required>
-    
-    <p class="error" id="error-message"></p>
-    <button type="submit" id="auth-button">Login</button>
-  </form>
-  <button id="toggle-auth-mode">Create an account</button>
+<div class="verification">
+  <h2>Email Verification</h2>
+  <p>Please check your email for the verification code.</p>
+  
+  <label for="verification-code">Enter Verification Code:</label>
+  <input type="text" id="verification-code" required>
+  
+  <p class="error" id="error-message"></p>
+  <p class="success" id="success-message"></p>
+  
+  <button id="verify-button">Verify</button>
 </div>
 
 <script>
-  let isLoginMode = true;
+  // Simulate sending a verification code (In a real app, this would be sent to the user's email)
+  const verificationCode = Math.floor(100000 + Math.random() * 900000); // Generates a 6-digit code
+  alert(`Your verification code is: ${verificationCode}`); // In a real app, you'd send this via email
 
-  const authTitle = document.getElementById('auth-title');
-  const authButton = document.getElementById('auth-button');
-  const toggleAuthModeButton = document.getElementById('toggle-auth-mode');
+  const verifyButton = document.getElementById('verify-button');
   const errorMessage = document.getElementById('error-message');
-  const authForm = document.getElementById('auth-form');
+  const successMessage = document.getElementById('success-message');
 
-  toggleAuthModeButton.addEventListener('click', () => {
-    isLoginMode = !isLoginMode;
-    authTitle.textContent = isLoginMode ? 'Login' : 'Sign Up';
-    authButton.textContent = isLoginMode ? 'Login' : 'Sign Up';
-    toggleAuthModeButton.textContent = isLoginMode ? 'Create an account' : 'Have an account? Log in';
-    errorMessage.textContent = '';
-  });
+  verifyButton.addEventListener('click', () => {
+    const enteredCode = document.getElementById('verification-code').value;
 
-  authForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    if (isLoginMode) {
-      handleLogin(username, password);
-    } else {
-      handleSignup(username, password);
-    }
-  });
-
-  function handleLogin(username, password) {
-    const userData = JSON.parse(localStorage.getItem(username));
-
-    if (userData && userData.password === password) {
-      alert('Login successful!');
+    // Check if entered code matches the generated code
+    if (enteredCode == verificationCode) {
+      successMessage.textContent = 'Verification successful!';
       errorMessage.textContent = '';
-      // Redirect or load user data as needed
+      // Proceed with further steps, e.g., login or redirect user
     } else {
-      errorMessage.textContent = 'Invalid username or password';
+      errorMessage.textContent = 'Incorrect verification code. Please try again.';
+      successMessage.textContent = '';
     }
-  }
-
-  function handleSignup(username, password) {
-    if (localStorage.getItem(username)) {
-      errorMessage.textContent = 'Username already exists';
-      return;
-    }
-
-    const newUser = {
-      username,
-      password
-    };
-
-    localStorage.setItem(username, JSON.stringify(newUser));
-    alert('Account created successfully!');
-    errorMessage.textContent = '';
-    isLoginMode = true;
-    authTitle.textContent = 'Login';
-    authButton.textContent = 'Login';
-    toggleAuthModeButton.textContent = 'Create an account';
-  }
+  });
 </script>
 
 </body>
