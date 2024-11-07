@@ -269,14 +269,21 @@ const EventList = () => {
     setCart(updatedCart);
   };
 
-  const handlePayout = () => {
-    if (cart.length === 0) {
-      alert("Your cart is empty. Please add tickets to Proceed!");
-      return;
-    }
+  const handlePayOut = () => {
+    const bookedTickets = cart.map((ticket) => {
+      const event = mockEvents.find((event) => event.id === ticket.eventId);
+      return {
+        movieTitle: event.name,
+        showtime: event.date,
+        tickets: ticket.tickets,
+        timeBooked: new Date().toLocaleString(),
+      };
+    });
 
-    alert("Proceeding to payout...");
+    localStorage.setItem("bookedTickets", JSON.stringify(bookedTickets));
 
+    alert("Payment successful!");
+    localStorage.removeItem("cart");
     clearCart();
   };
 
@@ -383,7 +390,7 @@ const EventList = () => {
               Clear Cart
             </button>
             <button
-              onClick={handlePayout}
+              onClick={handlePayOut}
               className={`bg-green-500 text-white p-2 rounded mt-4 w-full ${
                 cart.every((ticket) => ticket.tickets > 0)
                   ? ""

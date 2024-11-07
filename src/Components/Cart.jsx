@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const Cart = ({ cart, mockEvents, handleTicketChange, removeFromCart }) => {
   const calculateTotalPrice = () => {
@@ -12,6 +12,11 @@ const Cart = ({ cart, mockEvents, handleTicketChange, removeFromCart }) => {
   };
 
   const totalPrice = calculateTotalPrice();
+
+  // Save cart to local storage
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   return (
     <div className="max-w-4xl mx-auto p-8 bg-gradient-to-r from-[#1a1a2e] to-[#16213e] rounded-lg shadow-2xl">
