@@ -1,7 +1,7 @@
-
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../Firebase/firebase"; // Import the Firebase auth
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"; // Fixed import statement
 
 function UserProfile() {
   const [formValues, setFormValues] = useState({
@@ -10,7 +10,7 @@ function UserProfile() {
     password: "",
     role: "user",
   });
-
+  const [isLogin, setIsLogin] = useState(true); // State to toggle between login and signup
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -21,16 +21,29 @@ function UserProfile() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const { role } = formValues;
+    const { email, password } = formValues;
 
-    console.log("Form submitted with values:", formValues);
-
-    if (role === "admin") {
-      navigate("/dashboard");
-    } else {
-      navigate("/homepage");
+    try {
+      if (isLogin) {
+        // Login
+        await signInWithEmailAndPassword(auth, email, password);
+        console.log("User  logged in:", email);
+      } else {
+        // Sign up
+        await createUserWithEmailAndPassword(auth, email, password);
+        console.log("User  signed up:", email);
+      }
+      // Navigate based on role
+      if (formValues.role === "admin") {
+        navigate("/dashboard");
+      } else {
+        navigate("/homepage");
+      }
+    } catch (error) {
+      console.error("Error during authentication:", error);
+      alert("Invalid user"); // Show error message
     }
   };
 
@@ -88,15 +101,23 @@ function UserProfile() {
             className="w-full border-b-2 border-gray-300 p-2 outline-none focus:border-indigo-500"
             required
           >
-            <option value="user">User</option>
+            <option value="user">User </option>
             <option value="admin">Admin</option>
           </select>
         </div>
-        <button
+         
+          <button
           type="submit"
           className="w-full bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600 transition-all"
         >
-          Login/Signup
+          {isLogin ? "Login" : "Sign Up"}
+        </button>
+        <button
+          type="button"
+          onClick={() => setIsLogin(!isLogin)}
+          className="mt-4 w-full text-indigo-500 hover:underline"
+        >
+          {isLogin ? "Don't have an account? Sign Up" : "Already have an account? Login"}
         </button>
       </form>
     </div>
@@ -104,89 +125,3 @@ function UserProfile() {
 }
 
 export default UserProfile;
-=========
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-
-const UserProfile = ({ user }) => {
-    // Initialize profile state with user data
-    const [profile, setProfile] = useState(user || { bookings: [] });
-    const location = useLocation();
-    const { booking } = location.state || {}; // Get booking from the location state
-
-    // Use useEffect to update bookings when the component mounts
-    useEffect(() => {
-        if (booking) {
-            setProfile((prevProfile) => ({
-                ...prevProfile,
-                bookings: [
-                    ...prevProfile.bookings,
-                    { ...booking, id: Date.now(), upcoming: true } // Add a unique ID and mark it as upcoming
-                ]
-            }));
-        }
-    }, [booking]); // Dependency array ensures this runs only when booking changes
-
-    const handleCancelBooking = (bookingId) => {
-        alert(`Booking ${bookingId} canceled.`);
-        setProfile((prevProfile) => ({
-            ...prevProfile,
-            bookings: prevProfile.bookings.filter(b => b.id !== bookingId)
-        }));
-    };
-
-    const handleProfileUpdate = (e) => {
-        const { name, value } = e.target;
-        setProfile((prevProfile) => ({ ...prevProfile, [name]: value }));
-    };
-
-    return (
-        <div className="user-profile mb-8 p-6 bg-white rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4">My Profile</h2>
-            <label className="block mb-2">
-                Name:
-                <input
-                    type="text"
-                    name="name"
-                    value={profile.name || ''} // Handle case where profile.name may be undefined
-                    onChange={handleProfileUpdate}
-                    className="border border-gray-300 p-2 rounded-lg w-full focus:ring-2 focus:ring-blue-400"
-                />
-            </label>
-            <label className="block mb-4">
-                Email:
-                <input
-                    type="email"
-                    name="email"
-                    value={profile.email || ''} // Handle case where profile.email may be undefined
-                    onChange={handleProfileUpdate}
-                    className="border border-gray-300 p-2 rounded-lg w-full focus:ring-2 focus:ring-blue-400"
-                />
-            </label>
-
-            <h3 className="text-xl font-semibold mb-2">Past Bookings</h3>
-            {profile.bookings.length > 0 ? ( // Check if there are any bookings to display
-                <ul className="list-disc pl-5">
-                    {profile.bookings.map(booking => (
-                        <li key={booking.id} className="flex justify-between items-center mb-2">
-                            <span>{booking.movieName} - {booking.date} at {booking.time}</span>
-                            {booking.upcoming && (
-                                <button 
-                                    onClick={() => handleCancelBooking(booking.id)} 
-                                    className="text-red-500 hover:underline"
-                                >
-                                    Cancel Booking
-                                </button>
-                            )}
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <p>No past bookings available.</p> // Message when there are no bookings
-            )}
-        </div>
-    );
-};
-
-export default UserProfile;
->>>>>>>>> Temporary merge branch 2

@@ -1,7 +1,7 @@
-
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import ReactTyped from "react-typed"; // Corrected import statement
+import { ReactTyped } from "react-typed"; // Corrected import statement
+import Navbar from "./Navbar";
 
 const HomePage = () => {
   const navigate = useNavigate(); // Initialize navigate for logout functionality
@@ -93,64 +93,82 @@ const HomePage = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="2"
-                    d="M12 8v4l3 3m6-3a9 9 0                    a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold mb-2">Real-time Updates</h3>
+                <p className="text-gray-300">
+                  Get instant notifications about event changes and updates
+                </p>
               </div>
-              <h3 className="text-xl font-bold mb-2">Real-time Updates</h3>
-              <p className="text-gray-300">
-                Get instant notifications about event changes and updates
-              </p>
-            </div>
-
-            <div className="backdrop-blur-lg bg-white/10 p-6 rounded-2xl">
-              <div className="mb-4">
-                <svg
-                  className="w-10 h-10 mx-auto text-teal-300"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-                  />
-                </svg>
+  
+              <div className="backdrop-blur-lg bg-white/10 p-6 rounded-2xl">
+                <div className="mb-4">
+                  <svg
+                    className="w-10 h-10 mx-auto text-teal-300"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold mb-2">Secure Booking</h3>
+                <p className="text-gray-300">
+                  Safe and secure payment processing for all Movies
+                </p>
               </div>
-              <h3 className="text-xl font-bold mb-2">Secure Booking</h3>
-              <p className="text-gray-300">
-                Safe and secure payment processing for all Movies
-              </p>
-            </div>
-
-            <div className="backdrop-blur-lg bg-white/10 p-6 rounded-2xl">
-              <div className="mb-4">
-                <svg
-                  className="w-10 h-10 mx-auto text-teal-300"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                  />
-                </svg>
+  
+              <div className="backdrop-blur-lg bg-white/10 p-6 rounded-2xl">
+                <div className="mb-4">
+                  <svg
+                    className="w-10 h-10 mx-auto text-teal-300"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold mb-2">Community Driven</h3>
+                <p className="text-gray-300">
+                  Join a vibrant community of Movie enthusiasts
+                </p>
               </div>
-              <h3 className="text-xl font-bold mb-2">Community Driven</h3>
-              <p className="text-gray-300">
-                Join a vibrant community of Movie enthusiasts
-              </p>
             </div>
           </div>
         </div>
+  
+        {/* Footer Section */}
+        <footer className="bg-gray-800 text-white py-6 mt-12">
+          <div className="max-w-6xl mx-auto text-center">
+            <p className="text-sm">
+              &copy; {new Date().getFullYear()} The Home of Movies. All rights reserved.
+            </p>
+            <div className="mt-2">
+              <Link to="/privacy" className="text-gray-400 hover:text-gray-300 mx-2">
+                Privacy Policy
+              </Link>
+              |
+              <Link to="/terms" className="text-gray-400 hover:text-gray-300 mx-2">
+                Terms of Service
+              </Link>
+            </div>
+          </div>
+        </footer>
       </div>
-    </div>
-  );
-};
-
-export default HomePage;
+    );
+  };
+  
+  export default HomePage;
