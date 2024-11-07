@@ -8,6 +8,7 @@ import BookingPage from "./Components/OrderConfirmation";
 import Booking from "./Components/Booking";
 import UserProfile from "./Components/UserProfile";
 import Dashboard from "./Components/Dashboard";
+import PaymentDetailsForm from "./Components/PaymentDetailsForm";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -26,6 +27,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/homepage" element={<HomePage />} />
           <Route path="/events" element={<EventList />} />
+          <Route path="/payment" element={<PaymentDetailsForm />} />
           <Route path="/book/:id" element={<BookingPage />} />
           <Route path="/book/:id" element={<Booking />} />
         </Routes>
