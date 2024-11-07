@@ -5,31 +5,29 @@ import Questions from "./Questions";
 function Dashboard() {
   const navigate = useNavigate();
   const [isFirstTime, setIsFirstTime] = useState(false);
+  const [bookedTickets, setBookedTickets] = useState([]);
 
   useEffect(() => {
-    const firstTimeUser = localStorage.getItem("firstTimeUser");
+    const savedTickets =
+      JSON.parse(localStorage.getItem("bookedTickets")) || [];
+    setBookedTickets(savedTickets);
+  }, []);
+
+  useEffect(() => {
+    const firstTimeUser = localStorage.getItem("firstTimeUser ");
     if (!firstTimeUser) {
-      // This is the first time user
       setIsFirstTime(true);
     } else {
-      // If not first time, no need to show the first-time prompt
       setIsFirstTime(false);
     }
   }, []);
 
   const setIsFirstTimeUser = (status) => {
     setIsFirstTime(status);
-    // Set firstTimeUser to false only once the onboarding is complete
-    localStorage.setItem("firstTimeUser", "false");
+    localStorage.setItem("firstTimeUser ", "false");
     navigate("/dashboard");
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("loggedIn");
-    navigate("/");
-  };
-
-  // If it's the first-time user, show the Questions component
   if (isFirstTime) {
     return <Questions setIsFirstTimeUser={setIsFirstTimeUser} />;
   }
@@ -41,14 +39,43 @@ function Dashboard() {
           Admin Dashboard
         </h1>
         <p className="text-gray-600">
-          Welcome to the admin dashboard. Here you can manage various resources
-          and settings.
+          Welcome to the admin dashboard. Here you can manage booked tickets.
         </p>
 
-        <div className="mt-8">
-          <button className="bg-indigo-500 text-white py-2 px-6 rounded-lg hover:bg-indigo-600 transition-all">
-            Manage Showtimes
-          </button>
+        <div className="mt-8 p-4 bg-white shadow-md rounded-lg">
+          <h2 className="text-2xl font-semibold text-gray-800">
+            Booked Tickets
+          </h2>
+          <ul className="mt-4">
+            {bookedTickets.length > 0 ? (
+              bookedTickets.map((ticket, index) => (
+                <li key={index} className="border-b border-gray-200 py-4">
+                  <p className="text-lg font-medium text-gray-900">
+                    Title:{" "}
+                    <span className="font-normal">{ticket.movieTitle}</span>
+                  </p>
+                  <p className="text-lg font-medium text-gray-800">
+                    ShowTime:{" "}
+                    <span className="font-normal">{ticket.showtime}</span>
+                  </p>
+                  <p className="text-lg font-medium text-gray-800">
+                    Number of tickets booked:{" "}
+                    <span className="font-normal">
+                      {ticket.tickets} tickets
+                    </span>
+                  </p>
+                  <p className="text-lg font-medium text-gray-800">
+                    Time Booked:{" "}
+                    <span className="font-normal">{ticket.timeBooked}</span>
+                  </p>
+                </li>
+              ))
+            ) : (
+              <li className="py-4 text-gray-500 text-center">
+                No booked tickets available.
+              </li>
+            )}
+          </ul>
         </div>
       </div>
     </div>
