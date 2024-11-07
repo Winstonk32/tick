@@ -11,6 +11,27 @@ import spider from "../images/spider.jpeg";
 import venom from "../images/thumb-1920-1364834.png";
 import west from "../images/west.jpg";
 import Cart from "./Cart";
+import avatar_last_airbender from "../images/avatar_last_airbender.jpg";
+import avatar from "../images/avatar.jpeg";
+import batman from "../images/batman.jpeg";
+import blackpanther from "../images/blackpanther.webp";
+import dragon from "../images/dragon.avif";
+import encanto2 from "../images/encanto2.jpg";
+import flash from "../images/flash.webp";
+import frozen3 from "../images/frozen3.jpg";
+import guardians from "../images/guardians.jpg";
+import indiana from "../images/indiana.webp";
+import killers from "../images/killers.webp";
+import littlemermaid from "../images/littlemermaid.jpeg";
+import marvels from "../images/marvels.webp";
+import mission from "../images/mission.jpeg";
+import narnia from "../images/narnia.jpg";
+import oppenheimer from "../images/oppenheimer.jpeg";
+import puss_in_boots from "../images/puss-in-boots.webp";
+import secret_garden from "../images/secret_garden.jpeg";
+import secrets_of_dumbledore from "../images/secrets_of_dumbledore.jpg";
+import spirited_away from "../images/spirited_away.jpg";
+
 
 const mockEvents = [
   {
@@ -163,7 +184,309 @@ const mockEvents = [
       "The epic conclusion of Paul Atreides' journey as he seeks revenge against those who destroyed his family.",
     trailer: "https://www.youtube.com/watch?v=8g1g0A",
   },
+  {
+    id: 11,
+    name: "The Batman",
+    date: "Friday 10 December 2024",
+    location: "Cinema Hall 1",
+    category: "Action",
+    image: batman,
+    price: 13.99,
+    duration: "2h 55m",
+    director: "Matt Reeves",
+    cast: ["Robert Pattinson", "Zoë Kravitz", "Paul Dano"],
+    description:
+      "In his second year of fighting crime, Batman uncovers corruption in Gotham City that connects to his own family while facing the serial killer known as the Riddler.",
+    trailer: "https://youtu.be/mqqft2x_Aa4?si=F-bm8I3t8Rrr70TP",
+  },
+  {
+    id: 12,
+    name: "Avatar: The Way of Water",
+    date: "Friday 16 October 2024",
+    location: "Cinema Hall 2",
+    category: "Sci-Fi",
+    image: avatar,
+    price: 15.99,
+    duration: "3h 12m",
+    director: "James Cameron",
+    cast: ["Sam Worthington", "Zoe Saldana", "Kate Winslet"],
+    description:
+      "Jake Sully and Neytiri have formed a family and are doing everything to stay together. However, they must leave their home and explore the regions of Pandora.",
+    trailer: "https://youtu.be/d9MyW72ELq0?si=P-OEeq4kq7n69Fuw",
+  },
+  {
+    id: 13,
+    name: "Black Panther: Wakanda Forever",
+    date: "Saturday 11 Nov 2024",
+    location: "Cinema Hall 3",
+    category: "Action",
+    image: blackpanther,
+    price: 14.99,
+    duration: "2h 41m",
+    director: "Ryan Coogler",
+    cast: ["Letitia Wright", "Lupita Nyong'o", "Danai Gurira"],
+    description:
+      "The people of Wakanda fight to protect their home from intervening world powers as they mourn the death of King T'Challa.",
+      trailer: "https://youtu.be/_Z3QKkl1WyM?si=ouF2MXurwEfxx0HL",
+    },
+    {
+      id: 14,
+      name: "Mission: Impossible – Dead Reckoning Part One",
+      date: "Monday 14 Jnauary 2025",
+      location: "Cinema Hall 4",
+      category: "Action",
+      image: mission,
+      price: 14.99,
+      duration: "2h 30m",
+      director: "Christopher McQuarrie",
+      cast: ["Tom Cruise", "Hayley Atwell", "Ving Rhames"],
+      description:
+        "Ethan Hunt and his IMF team must track down a dangerous weapon before it falls into the wrong hands.",
+      trailer: "https://youtu.be/avz06PDqDbM?si=h6fJtxwxFXLQlpNe",
+    },
+    {
+      id: 15,
+      name: "The Flash",
+      date: "Saturday 23 Nov 2024",
+      location: "Cinema Hall 5",
+      category: "Action",
+      image: flash,
+      price: 13.99,
+      duration: "2h 24m",
+      director: "Andy Muschietti",
+      cast: ["Ezra Miller", "Michael Keaton", "Ben Affleck"],
+      description:
+        "Barry Allen uses his super speed to change the past, but his attempt to save his family creates a world without superheroes.",
+      trailer: "https://youtu.be/hebWYacbdvc?si=EGGsx-qOUJ0LLQaA",
+    },
+    {
+      id: 16,
+      name: "Guardians of the Galaxy Vol. 3",
+      date: "Tuesday 05 Dec 2024",
+      location: "Cinema Hall 6",
+      category: "Action",
+      image: guardians,
+      price: 14.99,
+      duration: "2h 30m",
+      director: "James Gunn",
+      cast: ["Chris Pratt", "Zoe Saldana", "Dave Bautista"],
+      description:
+        "The Guardians must fight to protect Rocket from his past while dealing with new threats to the galaxy.",
+      trailer: "https://youtu.be/u3V5KDHRQvk?si=vGRV7KyRA7CMG55H",
+    },
+    {
+      id: 17,
+      name: "Indiana Jones and the Dial of Destiny",
+      date: "Friday 30 Jan 2025",
+      location: "Cinema Hall 7",
+      category: "Adventure",
+      image: indiana,
+      price: 13.99,
+      duration: "2h 22m",
+      director: "James Mangold",
+      cast: ["Harrison Ford", "Phoebe Waller-Bridge", "Mads Mikkelsen"],
+      description:
+        "Indiana Jones returns for one last adventure, facing off against a new generation of villains.",
+      trailer: "https://youtu.be/eQfMbSe7F2g?si=f-emb7pwUWU6T7oy",
+    },
+    {
+      id: 18,
+      name: "The Marvels",
+      date: "Friday 10 Nov 2024",
+      location: "Cinema Hall 8",
+      category: "Action",
+      image: marvels,
+      price: 14.99,
+      duration: "2h 5m",
+      director: "Nia DaCosta",
+      cast: ["Brie Larson", "Teyonah Parris", "Zawe Ashton"],
+      description:
+        "Captain Marvel, Ms. Marvel, and Monica Rambeau team up to save the universe from a new threat.",
+      trailer: "https://youtu.be/wS_qbDztgVY?si=HzZSBDqp9KH9ZMjJ",
+    },
+    {
+      id: 19,
+      name: "Oppenheimer",
+      date: "Sunday 21 Jul 2024",
+      location: "Cinema Hall 9",
+      category: "Drama",
+      image: oppenheimer,
+      price: 12.99,
+      duration: "3h 0m",
+      director: "Christopher Nolan",
+      cast: ["Cillian Murphy", "Emily Blunt", "Matt Damon"],
+      description:
+        "The story of J. Robert Oppenheimer, the scientist who played a key role in the development of the atomic bomb.",
+      trailer: "https://youtu.be/uYPbbksJxIg?si=8CFMuN-H5EMoe3ei",
+    },
+    {
+      id: 20,
+      name: "Killers of the Flower Moon",
+      date: "Friday 20 Oct 2024",
+      location: "Cinema Hall 10",
+      category: "Crime",
+      image: killers,
+      price: 13.99,
+      duration: "2h 40m",
+      director: "Martin Scorsese",
+      cast: ["Leonardo DiCaprio", "Robert De Niro", "Lily Gladstone"],
+      description:
+      "In 1920s Oklahoma, a series of murders of wealthy Osage Nation members sparks a major FBI investigation.",
+    trailer: "https://youtu.be/EP34Yoxs3FQ?si=VyKrLqAhiphar1he",
+  },
+  // New fantasy and animation movies
+  {
+    id: 21,
+    name: "Frozen III",
+    date: "Friday 25 Nov 2025",
+    location: "Cinema Hall 1",
+    category: "Animation",
+    image: frozen3,
+    price: 12.99,
+    duration: "1h 45m",
+    director: "Jennifer Lee",
+    cast: ["Kristen Bell", "Idina Menzel", "Josh Gad"],
+    description:
+      "Elsa, Anna, Kristoff, and Olaf embark on a new adventure to discover the origins of Elsa's powers.",
+    trailer: "https://youtu.be/Zi4LMpSDccc?si=kQZOvAl0Inw2rrxt",
+  },
+  {
+    id: 22,
+    name: "The Little Mermaid",
+    date: "Saturday 12 August 2024",
+    location: "Cinema Hall 2",
+    category: "Fantasy",
+    image: littlemermaid,
+    price: 13.99,
+    duration: "2h 15m",
+    director: "Rob Marshall",
+    cast: ["Halle Bailey", "Jonah Hauer-King", "Melissa McCarthy"],
+    description:
+      "A live-action adaptation of Disney's animated classic about Ariel, a young mermaid who dreams of becoming human.",
+    trailer: "https://youtu.be/kpGo2_d3oYE?si=dyCN27cmp5A1fHvq",
+  },
+  {
+    id: 23,
+    name: "How to Train Your Dragon: The Hidden World",
+    date: "Friday 01 Nov 2024",
+    location: "Cinema Hall 3",
+    category: "Animation",
+    image: dragon,
+    price: 11.99,
+    duration: "1h 44m",
+    director: "Dean DeBlois",
+    cast: ["Jay Baruchel", "America Ferrera", "Cate Blanchett"],
+    description:
+      "Hiccup and Toothless discover a hidden world and must protect it from a new threat.",
+    trailer: "https://youtu.be/SkcucKDrbOI?si=Sky6KR4PLfzPr9Vr",
+  },
+  {
+    id: 24,
+    name: "Avatar: The Last Airbender",
+    date: "Saturday 15 Dec 2024",
+    location: "Cinema Hall 4",
+    category: "Fantasy",
+    image: avatar_last_airbender,
+    price: 14.99,
+    duration: "2h 30m",
+    director: "M. Night Shyamalan",
+    cast: ["Noah Ringer", "Dev Patel", "Nicola Peltz"],
+    description:
+      "A live-action adaptation of the beloved animated series, following Aang as he learns to master the four elements.",
+    trailer: "https://youtu.be/ByAn8DF8Ykk?si=QPQU4_EAzkHB-v6O",
+  },
+  {
+    id: 25,
+    name: "The Secret Garden",
+    date: "Friday 20 Mar 2025",
+    location: "Cinema Hall 5",
+    category: "Fantasy",
+    image: secret_garden,
+    price: 12.99,
+    duration: "1h 39m",
+    director: "Marc Munden",
+    cast: ["Dixie Egerickx", "Colin Firth", "Julie Walters"],
+    description:
+      "A young girl discovers a hidden, neglected garden and transforms it into a place of beauty and healing.",
+    trailer: "https://youtu.be/gHNOXDiD9Vk?si=IqswlEgkSeRO1REa",
+  },
+  {
+    id: 26,
+    name: "Puss in Boots: The Last Wish",
+    date: "Tuesday 23 Jan 2025",
+    location: "Cinema Hall 6",
+    category: "Animation",
+    image: puss_in_boots,
+    price: 11.99,
+    duration: "1h 42m",
+    director: "Joel Crawford",
+    cast: ["Antonio Banderas", "Salma Hayek", "Harvey Guillén"],
+    description:
+      "Puss in Boots discovers that his passion for adventure has taken its toll, and he sets out on a quest to restore his nine lives.",
+    trailer: "https://youtu.be/RqrXhwS33yc?si=TSvNd6_-IGqps_iX",
+  },
+  {
+    id: 27,
+    name: "The Chronicles of Narnia: The Silver Chair",
+    date: "Friday 15 March 2026",
+    location: "Cinema Hall 7",
+    category: "Fantasy",
+    image: narnia,
+    price: 13.99,
+    duration: "2h 10m",
+    director: "Joe Johnston",
+    cast: ["Will Poulter", "Anna Popplewell", "Ben Barnes"],
+    description:
+      "In this new adventure, Eustace Scrubb and Jill Pole are sent to Narnia to rescue Prince Rilian, the son of King Caspian.",
+    trailer: "https://youtu.be/EGReVtqijWA?si=YKeXQiGRH5G0zo1V",
+  },
+  {
+    id: 28,
+    name: "Encanto 2",
+    date: "Friday 10 Nov 2025",
+    location: "Cinema Hall 8",
+    category: "Animation",
+    image: encanto2,
+    price: 12.99,
+    duration: "1h 50m",
+    director: "Jared Bush",
+    cast: ["Stephanie Beatriz", "María Cecilia Botero", "John Leguizamo"],
+    description:
+      "The Madrigal family returns for another magical adventure in the vibrant world of Encanto.",
+    trailer: "https://youtu.be/6LWraeO0sqk?si=4c15lmm9tcivFxqB",
+  },
+  {
+    id: 29,
+    name: "The Wizarding World: Secrets of Dumbledore",
+    date: "Friday 15 Apr 2025",
+    location: "Cinema Hall 9",
+    category: "Fantasy",
+    image: secrets_of_dumbledore,
+    price: 14.99,
+    duration: "2h 23m",
+    director: "David Yates",
+    cast: ["Eddie Redmayne", "Jude Law", "Mads Mikkelsen"],
+    description:
+      "Professor Albus Dumbledore assembles a team of wizards and witches to take on the dark wizard Grindelwald.",
+    trailer: "https://youtu.be/Y9dr2zw-TXQ?si=lKE67Y2QowvTJBqi",
+  },
+  {
+    id: 30,
+    name: "Spirited Away: The Return",
+    date: "Saturday 20 Aug 2024",
+    location: "Cinema Hall 10",
+    category: "Animation",
+    image: spirited_away,
+    price: 13.99,
+    duration: "2h 5m",
+    director: "Hayao Miyazaki",
+    cast: ["Rumi Hiiragi", "Miyu Irino", "Mari Natsuki"],
+    description:
+      "Chihiro returns to the spirit world to help her friends and confront new challenges in this enchanting sequel.",
+    trailer: "https://youtu.be/4UMyL9mvn-A?si=T6bzAn-sqi_uL_XF",
+  },
 ];
+
 
 const categories = [
   "All",
