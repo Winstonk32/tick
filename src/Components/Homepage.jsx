@@ -13,6 +13,7 @@ const HomePage = () => {
   };
 
   return (
+
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-blue-900">
       {/* Hero Section */}
       <div className="relative min-h-screen flex items-center justify-center overflow-hidden">

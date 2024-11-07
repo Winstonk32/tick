@@ -48,74 +48,82 @@ function UserProfile() {
   };
 
   return (
-    <div>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <form
         onSubmit={handleSubmit}
-        className="max-w-md mx-auto bg-white p-8 shadow-md rounded-lg"
+        className="max-w-md w-full bg-white p-8 shadow-lg rounded-lg"
       >
+        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
+          {isLogin ? "Login" : "Sign Up"}
+        </h2>
+        
         <div className="relative mb-6">
           <input
             type="text"
             name="username"
             value={formValues.username}
             onChange={handleChange}
-            className="peer w-full border-b-2 border-gray-300 p-2 outline-none focus:border-indigo-500"
+            className="peer w-full border-b-2 border-gray-300 p-2 outline-none focus:border-indigo-500 transition duration-200"
             required
           />
           <label className="absolute left-0 top-0 text-gray-500 transform -translate-y-4 scale-75 transition-all peer-focus:text-indigo-500 peer-focus:-translate-y-4 peer-focus:scale-75 peer-placeholder-shown:top-2 peer-placeholder-shown:scale-100">
             Username
           </label>
         </div>
+        
         <div className="relative mb-6">
           <input
             type="email"
             name="email"
             value={formValues.email}
             onChange={handleChange}
-            className="peer w-full border-b-2 border-gray-300 p-2 outline-none focus:border-indigo-500"
+            className="peer w-full border-b-2 border-gray-300 p-2 outline-none focus:border-indigo-500 transition duration-200"
             required
           />
           <label className="absolute left-0 top-0 text-gray-500 transform -translate-y-4 scale-75 transition-all peer-focus:text-indigo-500 peer-focus:-translate-y-4 peer-focus:scale-75 peer-placeholder-shown:top-2 peer-placeholder-shown:scale-100">
             Email
           </label>
         </div>
+        
         <div className="relative mb-6">
           <input
             type="password"
             name="password"
             value={formValues.password}
             onChange={handleChange}
-            className="peer w-full border-b-2 border-gray-300 p-2 outline-none focus:border-indigo-500"
+            className="peer w-full border-b-2 border-gray-300 p-2 outline-none focus:border-indigo-500 transition duration-200"
             required
           />
           <label className="absolute left-0 top-0 text-gray-500 transform -translate-y-4 scale-75 transition-all peer-focus:text-indigo-500 peer-focus:-translate-y-4 peer-focus:scale-75 peer-placeholder-shown:top-2 peer-placeholder-shown:scale-100">
             Password
           </label>
         </div>
+        
         <div className="relative mb-6">
           <label className="block mb-2 text-gray-600">Role</label>
           <select
             name="role"
             value={formValues.role}
             onChange={handleChange}
-            className="w-full border-b-2 border-gray-300 p-2 outline-none focus:border-indigo-500"
+            className="w-full border-b-2 border-gray-300 p-2 outline-none focus:border-indigo-500             transition duration-200"
             required
           >
             <option value="user">User </option>
             <option value="admin">Admin</option>
           </select>
         </div>
-         
-          <button
+
+        <button
           type="submit"
-          className="w-full bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600 transition-all"
+          className="w-full bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600 transition-all duration-200"
         >
           {isLogin ? "Login" : "Sign Up"}
         </button>
+
         <button
           type="button"
           onClick={() => setIsLogin(!isLogin)}
-          className="mt-4 w-full text-indigo-500 hover:underline"
+          className="mt-4 w-full text-indigo-500 hover:underline transition-all duration-200"
         >
           {isLogin ? "Don't have an account? Sign Up" : "Already have an account? Login"}
         </button>

@@ -20,11 +20,10 @@ function App() {
   return (
     <Router>
       <div className="min-h-screen bg-gray-100">
-        {isLoggedIn && <Navbar />}
+        {isLoggedIn && <Navbar /> }
         <Routes>
           <Route path="/" element={<UserProfile />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/navbar" element={<Navbar />} />
           <Route path="/homepage" element={<HomePage />} />
           <Route path="/events" element={<EventList />} />
           <Route path="/book/:id" element={<BookingPage />} />
