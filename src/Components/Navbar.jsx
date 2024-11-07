@@ -1,16 +1,33 @@
-import { NavLink } from "react-router-dom";
-import React, { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  // Toggle mobile menu
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  // Handle Logout
+  const handleLogout = () => {
+    localStorage.removeItem("loggedIn"); // Remove the login state from localStorage
+    setIsLoggedIn(false); // Update state to reflect logout
+    navigate("/"); // Redirect to login page
+  };
+
+  // Check if the user is logged in (on page load)
+  useEffect(() => {
+    const loginState = localStorage.getItem("loggedIn");
+    if (loginState) {
+      setIsLoggedIn(true); // Update state if logged in
+    }
+  }, []);
 
   return (
     <nav className="bg-black text-white">
       <div className="container mx-auto px-4 flex justify-between items-center h-16">
         {/* Logo */}
-
         <NavLink to="/" className="text-2xl font-bold">
           TicketMaster
         </NavLink>
@@ -26,6 +43,13 @@ function Navbar() {
           <NavLink to="/contact" className="hover:text-gray-200">
             Contact
           </NavLink>
+
+          {/* If logged in, show Logout button */}
+          {isLoggedIn && (
+            <button onClick={handleLogout} className="hover:text-gray-200">
+              Logout
+            </button>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -59,9 +83,20 @@ function Navbar() {
           <NavLink to="/contact" className="block px-4 py-2 hover:bg-black">
             Contact
           </NavLink>
+
+          {/* If logged in, show Logout button */}
+          {isLoggedIn && (
+            <button
+              onClick={handleLogout}
+              className="block px-4 py-2 hover:bg-black"
+            >
+              Logout
+            </button>
+          )}
         </div>
       )}
     </nav>
   );
 }
+
 export default Navbar;

@@ -1,20 +1,21 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { ReactTyped } from 'react-typed';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ReactTyped } from "react-typed";
 
 const HomePage = () => {
-  
-    return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-blue-900">
-            {/* Hero Section */}
-            <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-                {/* Animated Background Elements */}
-                <div className="absolute inset-0">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_50%)]"></div>
-                    <div className="absolute top-0 left-0 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
-                    <div className="absolute top-0 right-0 w-96 h-96 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
-                    <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
-                </div>
+  // const { events, loading } = useContext(EventContext);
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-blue-900">
+      {/* Hero Section */}
+      <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_50%)]"></div>
+          <div className="absolute top-0 left-0 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
+          <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
+        </div>
 
                 {/* Content */}
                 <div className="relative z-10 text-center px-4">
@@ -37,29 +38,29 @@ const HomePage = () => {
                         />
                     </div>
 
-                    {/* CTA Buttons */}
-                    <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
-                        <Link
-                            to="/events"
-                            className="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-200 bg-transparent border-2 border-white rounded-full hover:bg-white hover:text-purple-900 focus:outline-none"
-                        >
-                            <span>Browse Movies</span>
-                            <svg
-                                className="w-5 h-5 ml-2 -mr-1 transition-transform duration-200 transform group-hover:translate-x-1"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M13 7l5 5m0 0l-5 5m5-5H6"
-                                />
-                            </svg>
-                        </Link>
-                    </div>
+          {/* CTA Buttons */}
+          <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
+            <Link
+              to="/events"
+              className="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-200 bg-transparent border-2 border-white rounded-full hover:bg-white hover:text-purple-900 focus:outline-none"
+            >
+              <span>Browse Movies</span>
+              <svg
+                className="w-5 h-5 ml-2 -mr-1 transition-transform duration-200 transform group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
+              </svg>
+            </Link>
+          </div>
 
                     {/* Features Section */}
                     <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 text-white max-w-6xl mx-auto px-4">

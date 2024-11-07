@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
-// import EventList from './Eventlist';
 
 const BookingPage = () => {
   const { id } = useParams(); // Get the movie ID from the URL
