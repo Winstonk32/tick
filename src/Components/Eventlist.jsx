@@ -139,47 +139,40 @@ const EventList = () => {
     clearCart();
   };
 
-    return (
-        <div className="container mx-auto px-4 py-12 bg-gray-100">
-            <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">Discover Movies</h1>
+  return (
+    <div className="container mx-auto px-4 py-12 bg-gray-100">
+      <button
+        onClick={toggleCart}
+        className="bg-gray-800 text-white p-2 rounded fixed top-20 right-4 z-10"
+      >
+        View Cart ({cart.length})
+      </button>
 
-                        {/* Search Bar */}
-                        <div className="mb-4">
-                <input
-                    type="text"
-                    placeholder="Search by name or location..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="border p-2 rounded w-full"
-                />
-          
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {movies.map(movie => (
-                    <Link 
-                        key={movie.id}
-                        to={`/booking/${movie.id}`} 
-                        className="block p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300"
-                    >
-                        <h2 className="text-2xl font-semibold">{movie.name}</h2>
-                    </Link>
-                ))}
-            </div>
-            </div>
+      {!showCart && (
+        <div>
+          <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">
+            Discover Movies
+          </h1>
 
-            {/* Category Filter */}
-            <div className="mb-4">
-                <select
-                    value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="border p-2 rounded w-full"
-                >
-                    {Categories.map((category) => (
-                        <option key={category} value={category}>
-                            {category}
-                        </option>
-                    ))}
-                </select>
-            </div>
+          <input
+            type="text"
+            placeholder="Search by name or location..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="border p-2 rounded w-full mb-4"
+          />
+
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="border p-2 rounded w-full mb-4"
+          >
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
 
             {/* Event Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -216,14 +209,51 @@ const EventList = () => {
                     </div>
                 ))}
             </div>
-
-            {/* Render OrderConfirmation if booking is set */}
-            {/* Uncomment below if you have a booking state to manage */}
-            {/* {booking && (
-                <OrderConfirmation booking={booking} />
-            )} */}
+          )}
         </div>
-    );
+      )}
+
+      {showCart && (
+        <div className="bg-gray bg-opacity-70 flex justify-center items-center inline-block">
+          <div className="bg-gray-300 p-8 rounded-lg w-96 inline-block">
+            <h3 className="text-2xl font-bold mb-2">My Cart</h3>
+            <p className="font-extrabold">Total Tickets: {totalTickets}</p>
+
+            <Cart
+              cart={cart}
+              mockEvents={mockEvents}
+              handleTicketChange={handleTicketChange}
+              removeFromCart={removeFromCart}
+            />
+
+            <button
+              onClick={clearCart}
+              className="bg-red-500 text-white p-2 rounded mt-4"
+            >
+              Clear Cart
+            </button>
+            <button
+              onClick={handlePayout}
+              className={`bg-green-500 text-white p-2 rounded mt-4 w-full ${
+                cart.every((ticket) => ticket.tickets > 0)
+                  ? ""
+                  : "opacity-50 cursor-not-allowed"
+              }`}
+              disabled={!cart.every((ticket) => ticket.tickets > 0)}
+            >
+              Payout
+            </button>
+            <button
+              onClick={toggleCart}
+              className="bg-gray-800 text-white p-2 rounded mt-2"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default EventList;
