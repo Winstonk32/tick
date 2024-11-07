@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Verification</title>
+  <style>
+    .verification {
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .verification h2 {
+      margin-bottom: 20px;
+    }
+    .verification label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    .verification input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+    .verification .error, .verification .success {
+      color: red;
+      margin: 10px 0;
+    }
+    .verification .success {
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+<div class="verification">
+  <h2>Email Verification</h2>
+  <p>Please check your email for the verification code.</p>
+  
+  <label for="verification-code">Enter Verification Code:</label>
+  <input type="text" id="verification-code" required>
+  
+  <p class="error" id="error-message"></p>
+  <p class="success" id="success-message"></p>
+  
+  <button id="verify-button">Verify</button>
+</div>
+
+<script>
+  // Simulate sending a verification code (In a real app, this would be sent to the user's email)
+  const verificationCode = Math.floor(100000 + Math.random() * 900000); // Generates a 6-digit code
+  alert(`Your verification code is: ${verificationCode}`); // In a real app, you'd send this via email
+
+  const verifyButton = document.getElementById('verify-button');
+  const errorMessage = document.getElementById('error-message');
+  const successMessage = document.getElementById('success-message');
+
+  verifyButton.addEventListener('click', () => {
+    const enteredCode = document.getElementById('verification-code').value;
+
+    // Check if entered code matches the generated code
+    if (enteredCode == verificationCode) {
+      successMessage.textContent = 'Verification successful!';
+      errorMessage.textContent = '';
+      // Proceed with further steps, e.g., login or redirect user
+    } else {
+      errorMessage.textContent = 'Incorrect verification code. Please try again.';
+      successMessage.textContent = '';
+    }
+  });
+</script>
+
+</body>
+</html>
