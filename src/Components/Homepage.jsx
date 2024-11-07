@@ -1,11 +1,10 @@
 // pages/HomePage.js
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { EventContext } from '../Components/EventContext';
 import { ReactTyped } from 'react-typed';
 
 const HomePage = () => {
-    const { events, loading } = useContext(EventContext);
+    
   
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-blue-900">
