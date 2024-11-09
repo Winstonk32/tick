@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../Firebase/firebase"; // Import the Firebase auth
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"; // Fixed import statement
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  setPersistence,
+  browserLocalPersistence,
+} from "firebase/auth"; // Fixed import statement
 
 function UserProfile() {
   const [formValues, setFormValues] = useState({
@@ -16,6 +21,10 @@ function UserProfile() {
   const [enteredCode, setEnteredCode] = useState("");
   const [verificationStep, setVerificationStep] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false); // State for remember me functionality
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,24 +41,41 @@ function UserProfile() {
     return code;
   };
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoginError("");
+    setSuccessMessage("");
+    setIsLoading(true);
+    const { email, password } = formValues;
+
+    try {
+      if (rememberMe) {
+        await setPersistence(auth, browserLocalPersistence);
+      }
+      await signInWithEmailAndPassword(auth, email, password);
+      setSuccessMessage("Logged in successfully!");
+
+      if (email === "admin@gmail.com") {
+        const code = generateVerificationCode();
+        setVerificationCode(code);
+        setVerificationStep(true); // Move to verification step
+      } else {
+        navigate("/homepage");
+      }
+    } catch (error) {
+      console.log(error);
+      setLoginError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { email, password, role } = formValues;
 
     try {
-      if (isLogin) {
-        // Login
-        await signInWithEmailAndPassword(auth, email, password);
-        console.log("User  logged in:", email);
-
-        if (role === "admin") {
-          const code = generateVerificationCode();
-          setVerificationCode(code);
-          setVerificationStep(true); // Move to verification step
-        } else {
-          navigate("/homepage");
-        }
-      } else {
+      if (!isLogin) {
         // Sign up
         await createUserWithEmailAndPassword(auth, email, password);
         console.log("User  signed up:", email);
@@ -77,12 +103,15 @@ function UserProfile() {
     <div className="flex items-center justify-center min-h-screen bg-[#38a3a5]">
       {!verificationStep ? (
         <form
-          onSubmit={handleSubmit}
+          onSubmit={isLogin ? handleLogin : handleSubmit}
           className="max-w-md w-full bg-white p-8 shadow-lg rounded-lg"
         >
           <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
             {isLogin ? "Login" : "Sign Up"}
           </h2>
+
+          {loginError && <p className="text-red-500">{loginError}</p>}
+          {successMessage && <p className="text-green-500">{successMessage}</p>}
 
           <div className="relative mb-6">
             <input
@@ -90,7 +119,7 @@ function UserProfile() {
               name="username"
               value={formValues.username}
               onChange={handleChange}
-              className="peer w-full border-b-2 border-gray-300 p-2 outline-none focus:border-indigo-500"
+              className="peer w-full border-b-2 border-gray-300 p-2 outline-none focus: border-indigo-500"
               required
             />
             <label className="absolute left-0 top-0 text-gray-500 transform -translate-y-4 scale-75 transition-all peer-focus:text-indigo-500 peer-focus:-translate-y-4 peer-focus:scale-75 peer-placeholder-shown:top-2 peer-placeholder-shown:scale-100">
@@ -104,7 +133,7 @@ function UserProfile() {
               name="email"
               value={formValues.email}
               onChange={handleChange}
-              className="peer w-full               border-gray-300 p-2 outline-none focus:border-indigo-500"
+              className="peer w-full border-gray-300 p-2 outline-none focus:border-indigo-500"
               required
             />
             <label className="absolute left-0 top-0 text-gray-500 transform -translate-y-4 scale-75 transition-all peer-focus:text-indigo-500 peer-focus:-translate-y-4 peer-focus:scale-75 peer-placeholder-shown:top-2 peer-placeholder-shown:scale-100">
@@ -140,11 +169,22 @@ function UserProfile() {
             </select>
           </div>
 
+          <div className="flex items-center mb-4">
+            <input
+              type="checkbox"
+              checked={rememberMe}
+              onChange={() => setRememberMe(!rememberMe)}
+              className="mr-2"
+            />
+            <label className="text-gray-600">Remember Me</label>
+          </div>
+
           <button
             type="submit"
             className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-all duration-200"
+            disabled={isLoading}
           >
-            {isLogin ? "Login" : "Sign Up"}
+            {isLoading ? "Loading..." : isLogin ? "Login" : "Sign Up"}
           </button>
 
           <button
@@ -152,7 +192,9 @@ function UserProfile() {
             onClick={() => setIsLogin(!isLogin)}
             className="mt-4 w-full text-indigo-600 hover:underline transition-all duration-200"
           >
-            {isLogin ? "Don't have an account? Sign Up" : "Already have an account? Login"}
+            {isLogin
+              ? "Don't have an account? Sign Up"
+              : "Already have an account? Login"}
           </button>
 
           <div className="flex flex-row text-center w-full mt-4">
@@ -166,7 +208,9 @@ function UserProfile() {
           <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
             Verify Your Account
           </h2>
-          <p className="mb-4">Please enter the verification code sent to your email.</p>
+          <p className="mb-4">
+            Please enter the verification code sent to your email.
+          </p>
           <input
             type="text"
             value={enteredCode}
