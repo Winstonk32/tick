@@ -26,6 +26,9 @@ function UserProfile() {
   const [isLoading, setIsLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false); // State for remember me functionality
 
+  const ADMIN_EMAIL = "admin@gmail.com";
+  const ADMIN_PASSWORD = "admin123";
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues((prevValues) => ({
@@ -47,28 +50,26 @@ function UserProfile() {
     setSuccessMessage("");
     setIsLoading(true);
     const { email, password } = formValues;
-
+  
     try {
-      if (rememberMe) {
-        await setPersistence(auth, browserLocalPersistence);
-      }
-      await signInWithEmailAndPassword(auth, email, password);
-      setSuccessMessage("Logged in successfully!");
-
-      if (email === "admin@gmail.com") {
+      // Check if admin credentials match the hardcoded values
+      if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
         const code = generateVerificationCode();
         setVerificationCode(code);
         setVerificationStep(true); // Move to verification step
       } else {
-        navigate("/homepage");
+        // Show an error message for non-admin credentials
+        setLoginError("Invalid user"); // Display error message
       }
     } catch (error) {
       console.log(error);
-      setLoginError(error.message);
+      setLoginError("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
     }
   };
+  
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -99,6 +100,8 @@ function UserProfile() {
     }
   };
 
+  
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#38a3a5]">
       {!verificationStep ? (
@@ -119,7 +122,7 @@ function UserProfile() {
               name="username"
               value={formValues.username}
               onChange={handleChange}
-              className="peer w-full border-b-2 border-gray-300 p-2 outline-none focus: border-indigo-500"
+              className="peer w-full border-b-2 p-2 outline-none focus: border-indigo-500"
               required
             />
             <label className="absolute left-0 top-0 text-gray-500 transform -translate-y-4 scale-75 transition-all peer-focus:text-indigo-500 peer-focus:-translate-y-4 peer-focus:scale-75 peer-placeholder-shown:top-2 peer-placeholder-shown:scale-100">
@@ -133,7 +136,7 @@ function UserProfile() {
               name="email"
               value={formValues.email}
               onChange={handleChange}
-              className="peer w-full border-gray-300 p-2 outline-none focus:border-indigo-500"
+              className="peer w-full border-b-2 border-gray-300 p-2 outline-none focus:border-indigo-500"
               required
             />
             <label className="absolute left-0 top-0 text-gray-500 transform -translate-y-4 scale-75 transition-all peer-focus:text-indigo-500 peer-focus:-translate-y-4 peer-focus:scale-75 peer-placeholder-shown:top-2 peer-placeholder-shown:scale-100">
@@ -147,7 +150,7 @@ function UserProfile() {
               name="password"
               value={formValues.password}
               onChange={handleChange}
-              className="peer w-full border-b-2 border-gray-300 p-2 outline-none focus:border-indigo-500"
+              className="peer w-full border-b-2  border-gray-300 p-2 outline-none focus:border-indigo-500"
               required
             />
             <label className="absolute left-0 top-0 text-gray-500 transform -translate-y-4 scale-75 transition-all peer-focus:text-indigo-500 peer-focus:-translate-y-4 peer-focus:scale-75 peer-placeholder-shown:top-2 peer-placeholder-shown:scale-100">
@@ -169,7 +172,7 @@ function UserProfile() {
             </select>
           </div>
 
-          <div className="flex items-center mb-4">
+          <div className="flex items-cente border-gray-300r mb-4">
             <input
               type="checkbox"
               checked={rememberMe}
