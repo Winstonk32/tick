@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { db, collection, addDoc, getDocs } from "../Firebase/firebase";
+import { db, collection, auth, addDoc, getDocs } from "../Firebase/firebase";
 
 const Cart = ({ cart, mockEvents, handleTicketChange, removeFromCart }) => {
   const [history, setHistory] = useState([]); // State to store fetched cart history
@@ -25,7 +25,17 @@ const Cart = ({ cart, mockEvents, handleTicketChange, removeFromCart }) => {
           eventDetails: mockEvents.find((event) => event.id === ticket.eventId),
         }));
 
-        await addDoc(cartRef, { cartItems, totalPrice, createdAt: new Date() });
+        const user = auth.currentUser;
+        if (user) {
+          // Saving cart with user's username and id
+          await addDoc(cartRef, {
+            cartItems,
+            totalPrice,
+            createdAt: new Date(),
+            userId: user.uid, // Store the user's ID
+            userName: user.displayName || "Anonymous", // Store the user's displayName or a default if not available
+          });
+        }
       } catch (error) {
         console.error("Error saving cart to Firebase:", error);
       }
@@ -40,11 +50,21 @@ const Cart = ({ cart, mockEvents, handleTicketChange, removeFromCart }) => {
   const fetchCartHistory = async () => {
     try {
       const cartRef = collection(db, "cartItems");
+      const currentUser = auth.currentUser; // Get the current user
+
+      if (!currentUser) {
+        console.error("No user logged in");
+        return;
+      }
+
       const snapshot = await getDocs(cartRef);
-      const historyData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
+      const historyData = snapshot.docs
+        .map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+        .filter((historyItem) => historyItem.userId === currentUser.uid); // Filter by user ID
+
       setHistory(historyData);
     } catch (error) {
       console.error("Error fetching cart history from Firebase:", error);
