@@ -63,11 +63,11 @@ function Dashboard() {
               {cartHistory.length > 0 ? (
                 cartHistory.map((cartItem, index) => (
                   <li key={index} className="border-b border-gray-200 py-4">
-                    <h3 className="text-lg font-medium text-gray-900">
+                    {/* <h3 className="text-lg font-medium text-gray-900">
                       Booked by:{" "}
                       <span className="font-normal">{cartItem.userName}</span>{" "}
                       {/* Display user name */}
-                    </h3>
+                    {/* </h3> */}
                     <p className="text-lg font-medium text-gray-900">
                       Total Price:{" "}
                       <span className="font-normal">
