@@ -1,42 +1,42 @@
 import React, { useState, useEffect } from "react";
-import { db, collection, getDocs } from "../Firebase/firebase"; // Import Firestore functions
-import { auth } from "../Firebase/firebase"; // Import Firebase auth to get the current user
+import { db, collection } from "../Firebase/firebase"; // Import necessary Firestore functions
+import { auth } from "../Firebase/firebase"; // Import Firebase auth
+import { query, where, getDocs } from "firebase/firestore"; // Correct import for query and where
 
 function Dashboard() {
-  const [cartHistory, setCartHistory] = useState([]); // State for cart history
+  const [cartHistory, setCartHistory] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [userEmail, setUserEmail] = useState(""); // State to store logged-in user's email
 
   useEffect(() => {
+    const fetchUserEmail = () => {
+      const user = auth.currentUser; // Get the current logged-in user
+      if (user) {
+        // Set the email from Firebase Authentication
+        setUserEmail(user.email); // Set the email to state
+      }
+    };
+
     const fetchCartHistory = async () => {
       try {
-        const cartHistoryCollection = collection(db, "cartItems"); // Assuming cart history is saved in this collection
+        const cartHistoryCollection = collection(db, "cartItems");
         const snapshot = await getDocs(cartHistoryCollection);
         const cartData = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
 
-        // Filter cart history based on the logged-in user (userId)
-        const currentUser = auth.currentUser; // Get the current logged-in user
-        if (!currentUser) {
-          console.error("No user logged in");
-          return;
-        }
-
-        const userCartHistory = cartData.filter(
-          (cart) => cart.userId === currentUser.uid // Filter by userId
-        );
-
-        setCartHistory(userCartHistory); // Set filtered cart history for this user
+        setCartHistory(cartData);
       } catch (error) {
         console.error("Error fetching cart history:", error);
       } finally {
-        setLoading(false); // Set loading to false once data is fetched
+        setLoading(false);
       }
     };
 
-    fetchCartHistory();
-  }, []); // Empty dependency array means this runs once when component mounts
+    fetchUserEmail(); // Fetch the email when the component mounts
+    fetchCartHistory(); // Fetch cart history when the component mounts
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
@@ -63,11 +63,12 @@ function Dashboard() {
               {cartHistory.length > 0 ? (
                 cartHistory.map((cartItem, index) => (
                   <li key={index} className="border-b border-gray-200 py-4">
-                    {/* <h3 className="text-lg font-medium text-gray-900">
+                    <h3 className="text-lg font-medium text-gray-900">
                       Booked by:{" "}
-                      <span className="font-normal">{cartItem.userName}</span>{" "}
-                      {/* Display user name */}
-                    {/* </h3> */}
+                      <span className="font-normal">
+                        {userEmail || "Unknown User"} {/* Display email */}
+                      </span>
+                    </h3>
                     <p className="text-lg font-medium text-gray-900">
                       Total Price:{" "}
                       <span className="font-normal">
@@ -80,8 +81,7 @@ function Dashboard() {
                         {new Date(
                           cartItem.createdAt.seconds * 1000
                         ).toLocaleString()}
-                      </span>{" "}
-                      {/* Display formatted time */}
+                      </span>
                     </p>
                     <ul className="mt-4">
                       {cartItem.cartItems.map((item, idx) => (
