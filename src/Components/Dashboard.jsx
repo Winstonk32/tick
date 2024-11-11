@@ -1,36 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Questions from "./Questions";
+import { db, collection, getDocs } from "../Firebase/firebase"; // Import Firestore functions
 
 function Dashboard() {
   const navigate = useNavigate();
   const [isFirstTime, setIsFirstTime] = useState(false);
   const [bookedTickets, setBookedTickets] = useState([]);
 
+  // Fetch booked tickets from Firestore
   useEffect(() => {
-    const savedTickets =
-      JSON.parse(localStorage.getItem("bookedTickets")) || [];
-    setBookedTickets(savedTickets);
+    const fetchBookedTickets = async () => {
+      try {
+        const bookedTicketsCollection = collection(db, "bookedTickets");
+        const ticketsSnapshot = await getDocs(bookedTicketsCollection);
+        const ticketsData = ticketsSnapshot.docs.map((doc) => doc.data());
+        setBookedTickets(ticketsData);
+      } catch (error) {
+        console.error("Error fetching booked tickets:", error);
+      }
+    };
+
+    fetchBookedTickets();
   }, []);
 
+  // Check if the user is visiting for the first time
   useEffect(() => {
-    const firstTimeUser = localStorage.getItem("firstTimeUser ");
-    if (!firstTimeUser) {
-      setIsFirstTime(true);
-    } else {
-      setIsFirstTime(false);
-    }
+    const firstTimeUser = localStorage.getItem("firstTimeUser");
+    setIsFirstTime(!firstTimeUser);
   }, []);
-
-  const setIsFirstTimeUser = (status) => {
-    setIsFirstTime(status);
-    localStorage.setItem("firstTimeUser ", "false");
-    navigate("/dashboard");
-  };
-
-  if (isFirstTime) {
-    return <Questions setIsFirstTimeUser={setIsFirstTimeUser} />;
-  }
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">

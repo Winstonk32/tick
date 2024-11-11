@@ -1,6 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { db, collection, addDoc, getDocs } from "../Firebase/firebase";
 
 const Cart = ({ cart, mockEvents, handleTicketChange, removeFromCart }) => {
+  const [history, setHistory] = useState([]); // State to store fetched cart history
   const calculateTotalPrice = () => {
     return cart.reduce((total, ticket) => {
       const event = mockEvents.find((event) => event.id === ticket.eventId);
@@ -13,20 +15,90 @@ const Cart = ({ cart, mockEvents, handleTicketChange, removeFromCart }) => {
 
   const totalPrice = calculateTotalPrice();
 
-  // Save cart to local storage
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+    const saveCartToFirebase = async () => {
+      try {
+        const cartRef = collection(db, "cartItems");
+
+        const cartItems = cart.map((ticket) => ({
+          ...ticket,
+          eventDetails: mockEvents.find((event) => event.id === ticket.eventId),
+        }));
+
+        await addDoc(cartRef, { cartItems, totalPrice, createdAt: new Date() });
+      } catch (error) {
+        console.error("Error saving cart to Firebase:", error);
+      }
+    };
+
+    if (cart.length > 0) {
+      saveCartToFirebase();
+    }
+  }, [cart, mockEvents, totalPrice]);
+
+  // Function to fetch cart history from Firebase
+  const fetchCartHistory = async () => {
+    try {
+      const cartRef = collection(db, "cartItems");
+      const snapshot = await getDocs(cartRef);
+      const historyData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setHistory(historyData);
+    } catch (error) {
+      console.error("Error fetching cart history from Firebase:", error);
+    }
+  };
 
   return (
     <div className="max-w-4xl mx-auto p-8 bg-gradient-to-r from-[#1a1a2e] to-[#16213e] rounded-lg shadow-2xl">
       <h2 className="text-4xl font-bold text-center text-[#e94560] mb-8">
         Your Cart
       </h2>
+
+      <button
+        onClick={fetchCartHistory}
+        className="bg-[#46d369] text-white p-3 rounded mb-8 hover:bg-[#35b65c] transition"
+      >
+        View History
+      </button>
+
+      {history.length > 0 && (
+        <div className="history mt-8">
+          <h3 className="text-2xl font-bold text-center text-[#e94560] mb-4">
+            Purchase History
+          </h3>
+          <ul className="space-y-6">
+            {history.map((historyItem) => (
+              <li
+                key={historyItem.id}
+                className="p-6 rounded-lg shadow-lg bg-[#0f3460]"
+              >
+                <h4 className="text-xl font-bold text-[#ffffff] mb-2">
+                  Booked on:{" "}
+                  {historyItem.createdAt.toDate().toLocaleDateString()}
+                </h4>
+                <p className="text-[#ffffff] font-bold">
+                  Total Price: ${historyItem.totalPrice.toFixed(2)}
+                </p>
+                <ul className="list-disc ml-5 mt-2">
+                  {historyItem.cartItems.map((item, index) => (
+                    <li key={index} className="text-gray-300">
+                      Name: {item.eventDetails.name} | Tickets: {item.tickets} |
+                      Price per ticket: ${item.eventDetails.price}
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <ul className="space-y-6">
         {cart.map((ticket, index) => {
           const event = mockEvents.find((event) => event.id === ticket.eventId);
-
           return event ? (
             <li
               key={index}
@@ -71,9 +143,9 @@ const Cart = ({ cart, mockEvents, handleTicketChange, removeFromCart }) => {
                   ))}
                 </ul>
                 <p className="text-gray-300 mb-2">
-                  <span className="font-bold">Description:</span> {event.description}
+                  <span className="font-bold">Description:</span>{" "}
+                  {event.description}
                 </p>
-
                 <div className="mt-4">
                   <label className="text-[#ffffff]">Tickets:</label>
                   <input

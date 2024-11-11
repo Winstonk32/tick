@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCLYLbIxdT60MhVT_cVh8THbGggGzDN4Tc",
@@ -8,12 +9,11 @@ const firebaseConfig = {
   storageBucket: "ticket-master-40fe2.firebasestorage.app",
   messagingSenderId: "555057561958",
   appId: "1:555057561958:web:a7dece5f1274e2e731c8a7",
-  measurementId: "G-107HJKKSK4"
+  measurementId: "G-107HJKKSK4",
 };
 
-
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app)
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-
-export { app, auth }; 
+export { db, collection, addDoc, getDocs, app, auth };
